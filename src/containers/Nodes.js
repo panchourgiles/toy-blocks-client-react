@@ -1,16 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as actions from "../actions/nodes";
-import Node from "../components/Node";
-import { Typography, Box } from "@material-ui/core";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '../actions';
+import Node from '../components/Node';
+import { Typography, Box } from '@material-ui/core';
 
 export class Nodes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expandedNodeURL: null,
+      expandedNodeURL: null
     };
     this.toggleNodeExpanded = this.toggleNodeExpanded.bind(this);
   }
@@ -20,9 +20,12 @@ export class Nodes extends React.Component {
   }
 
   toggleNodeExpanded(node) {
+    if (node.url !== this.state.expandedNodeURL && node.online) {
+      this.props.actions.getBlocks(node);
+    }
+
     this.setState({
-      expandedNodeURL:
-        node.url === this.state.expandedNodeURL ? null : node.url,
+      expandedNodeURL: node.url === this.state.expandedNodeURL ? null : node.url
     });
   }
 
@@ -31,7 +34,7 @@ export class Nodes extends React.Component {
     return (
       <Box paddingTop={7}>
         <Typography variant="h4" component="h1">
-          <strong style={{ color: "#000" }}>Nodes</strong>
+          <strong style={{ color: '#000' }}>Nodes</strong>
         </Typography>
         {nodes.list.map((node) => (
           <Node
@@ -48,18 +51,18 @@ export class Nodes extends React.Component {
 
 Nodes.propTypes = {
   actions: PropTypes.object.isRequired,
-  nodes: PropTypes.object.isRequired,
+  nodes: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    nodes: state.nodes,
+    nodes: state.nodes
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(actions, dispatch),
+    actions: bindActionCreators(actions, dispatch)
   };
 }
 

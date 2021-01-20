@@ -1,19 +1,22 @@
-import React from "react";
-import PropTypes from "prop-types";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import React from 'react';
+import PropTypes from 'prop-types';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
+  CircularProgress,
   ExpansionPanel,
   ExpansionPanelSummary,
   Typography,
   ExpansionPanelDetails,
   makeStyles,
-  Box,
-} from "@material-ui/core";
-import colors from "../constants/colors";
-import Status from "./Status";
+  Box
+} from '@material-ui/core';
+import colors from '../constants/colors';
+import Status from './Status';
+import Block from './Block';
 
 const Node = ({ node, expanded, toggleNodeExpanded }) => {
   const classes = useStyles();
+  const { blocks } = node;
   return (
     <ExpansionPanel
       elevation={3}
@@ -26,14 +29,14 @@ const Node = ({ node, expanded, toggleNodeExpanded }) => {
         classes={{
           expandIcon: classes.icon,
           content: classes.content,
-          expanded: classes.expanded,
+          expanded: classes.expanded
         }}
         expandIcon={<ExpandMoreIcon />}
       >
         <Box className={classes.summaryContent}>
           <Box>
             <Typography variant="h5" className={classes.heading}>
-              {node.name || "Unknown"}
+              {node.name || 'Unknown'}
             </Typography>
             <Typography
               variant="subtitle1"
@@ -46,7 +49,17 @@ const Node = ({ node, expanded, toggleNodeExpanded }) => {
         </Box>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
-        <Typography>Blocks go here</Typography>
+        <Box className={classes.blocksContainer}>
+          {blocks.loading ? (
+            <CircularProgress />
+          ) : blocks.error || !node.online ? (
+            <Typography>Sorry, there is an error. Please try again</Typography>
+          ) : (
+            blocks.data &&
+            blocks.data.length &&
+            blocks.data.map((block) => <Block key={block.id} block={block} />)
+          )}
+        </Box>
       </ExpansionPanelDetails>
     </ExpansionPanel>
   );
@@ -54,48 +67,51 @@ const Node = ({ node, expanded, toggleNodeExpanded }) => {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: "16px 0",
-    boxShadow: "0px 3px 6px 1px rgba(0,0,0,0.15)",
-    "&:before": {
-      backgroundColor: "unset",
-    },
+    margin: '16px 0',
+    boxShadow: '0px 3px 6px 1px rgba(0,0,0,0.15)',
+    '&:before': {
+      backgroundColor: 'unset'
+    }
   },
   summary: {
-    padding: "0 24px",
+    padding: '0 24px'
   },
   summaryContent: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
-    paddingRight: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    paddingRight: 20
   },
   icon: {
-    color: colors.faded,
+    color: colors.faded
   },
   content: {
-    margin: "10px 0 !important", // Avoid change of sizing on expanded
+    margin: '10px 0 !important' // Avoid change of sizing on expanded
   },
   expanded: {
-    "& $icon": {
+    '& $icon': {
       paddingLeft: 0,
       paddingRight: 12,
       top: -10,
-      marginRight: 0,
-    },
+      marginRight: 0
+    }
   },
   heading: {
     fontSize: theme.typography.pxToRem(17),
-    display: "block",
+    display: 'block',
     color: colors.text,
-    lineHeight: 1.5,
+    lineHeight: 1.5
   },
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(14),
     color: colors.faded,
-    lineHeight: 2,
+    lineHeight: 2
   },
+  blocksContainer: {
+    width: '100%'
+  }
 }));
 
 Node.propTypes = {
@@ -103,10 +119,10 @@ Node.propTypes = {
     url: PropTypes.string,
     online: PropTypes.bool,
     name: PropTypes.string,
-    loading: PropTypes.bool,
+    loading: PropTypes.bool
   }).isRequired,
   expanded: PropTypes.bool,
-  toggleNodeExpanded: PropTypes.func.isRequired,
+  toggleNodeExpanded: PropTypes.func.isRequired
 };
 
 export default Node;

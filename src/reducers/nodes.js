@@ -1,4 +1,11 @@
-import {CHECK_NODE_STATUS_START, CHECK_NODE_STATUS_SUCCESS, CHECK_NODE_STATUS_FAILURE} from '../constants/actionTypes';
+import {
+  CHECK_NODE_STATUS_START,
+  CHECK_NODE_STATUS_SUCCESS,
+  CHECK_NODE_STATUS_FAILURE,
+  GET_BLOCKS_START,
+  GET_BLOCKS_SUCCESS,
+  GET_BLOCKS_FAILURE
+} from '../constants/actionTypes';
 import initialState from './initialState';
 
 export default function nodesReducer(state = initialState().nodes, action) {
@@ -6,7 +13,7 @@ export default function nodesReducer(state = initialState().nodes, action) {
   switch (action.type) {
     case CHECK_NODE_STATUS_START:
       list = state.list;
-      nodeIndex = state.list.findIndex(p => p.url === action.node.url);
+      nodeIndex = state.list.findIndex((p) => p.url === action.node.url);
       if (nodeIndex >= 0) {
         list = [
           ...state.list.slice(0, nodeIndex),
@@ -23,7 +30,7 @@ export default function nodesReducer(state = initialState().nodes, action) {
       };
     case CHECK_NODE_STATUS_SUCCESS:
       list = state.list;
-      nodeIndex = state.list.findIndex(p => p.url === action.node.url);
+      nodeIndex = state.list.findIndex((p) => p.url === action.node.url);
       if (nodeIndex >= 0) {
         list = [
           ...state.list.slice(0, nodeIndex),
@@ -42,7 +49,7 @@ export default function nodesReducer(state = initialState().nodes, action) {
       };
     case CHECK_NODE_STATUS_FAILURE:
       list = state.list;
-      nodeIndex = state.list.findIndex(p => p.url === action.node.url);
+      nodeIndex = state.list.findIndex((p) => p.url === action.node.url);
       if (nodeIndex >= 0) {
         list = [
           ...state.list.slice(0, nodeIndex),
@@ -50,6 +57,69 @@ export default function nodesReducer(state = initialState().nodes, action) {
             ...state.list[nodeIndex],
             online: false,
             loading: false
+          },
+          ...state.list.slice(nodeIndex + 1)
+        ];
+      }
+      return {
+        ...state,
+        list
+      };
+    case GET_BLOCKS_START:
+      list = state.list;
+      nodeIndex = state.list.findIndex((p) => p.url === action.node.url);
+      if (nodeIndex >= 0) {
+        list = [
+          ...state.list.slice(0, nodeIndex),
+          {
+            ...state.list[nodeIndex],
+            blocks: {
+              data: [],
+              loading: true,
+              error: false
+            }
+          },
+          ...state.list.slice(nodeIndex + 1)
+        ];
+      }
+      return {
+        ...state,
+        list
+      };
+    case GET_BLOCKS_SUCCESS:
+      list = state.list;
+      nodeIndex = state.list.findIndex((p) => p.url === action.node.url);
+      if (nodeIndex >= 0) {
+        list = [
+          ...state.list.slice(0, nodeIndex),
+          {
+            ...state.list[nodeIndex],
+            blocks: {
+              data: action.res.data,
+              loading: false,
+              error: false
+            }
+          },
+          ...state.list.slice(nodeIndex + 1)
+        ];
+      }
+      return {
+        ...state,
+        list
+      };
+    case GET_BLOCKS_FAILURE:
+      list = state.list;
+      nodeIndex = state.list.findIndex((p) => p.url === action.node.url);
+      if (nodeIndex >= 0) {
+        list = [
+          ...state.list.slice(0, nodeIndex),
+          {
+            ...state.list[nodeIndex],
+            blocks: {
+              data: [],
+              loading: false,
+              error: true
+            }
           },
           ...state.list.slice(nodeIndex + 1)
         ];

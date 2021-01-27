@@ -43,10 +43,10 @@ exports[`<Nodes /> should match snapshot 1`] = `
         className="MuiExpansionPanelSummary-content makeStyles-content-37"
       >
         <div
-          className="MuiBox-root MuiBox-root-82 makeStyles-summaryContent-35"
+          className="MuiBox-root MuiBox-root-83 makeStyles-summaryContent-35"
         >
           <div
-            className="MuiBox-root MuiBox-root-83"
+            className="MuiBox-root MuiBox-root-84"
           >
             <h5
               className="MuiTypography-root makeStyles-heading-39 MuiTypography-h5"
@@ -60,13 +60,13 @@ exports[`<Nodes /> should match snapshot 1`] = `
             </h6>
           </div>
           <div
-            className="MuiBox-root MuiBox-root-88"
+            className="MuiBox-root MuiBox-root-89"
           >
             <span
-              className="makeStyles-dot-84 makeStyles-dot-86"
+              className="makeStyles-dot-85 makeStyles-dot-87"
             />
             <span
-              className="makeStyles-text-85 makeStyles-text-87"
+              className="makeStyles-text-86 makeStyles-text-88"
             >
               OFFLINE
             </span>
@@ -132,11 +132,15 @@ exports[`<Nodes /> should match snapshot 1`] = `
             <div
               className="MuiExpansionPanelDetails-root"
             >
-              <p
-                className="MuiTypography-root MuiTypography-body1"
+              <div
+                className="MuiBox-root MuiBox-root-114 makeStyles-blocksContainer-41"
               >
-                Blocks go here
-              </p>
+                <p
+                  className="MuiTypography-root MuiTypography-body1"
+                >
+                  Sorry, there is an error. Please try again
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -169,10 +173,10 @@ exports[`<Nodes /> should match snapshot 1`] = `
         className="MuiExpansionPanelSummary-content makeStyles-content-37"
       >
         <div
-          className="MuiBox-root MuiBox-root-113 makeStyles-summaryContent-35"
+          className="MuiBox-root MuiBox-root-115 makeStyles-summaryContent-35"
         >
           <div
-            className="MuiBox-root MuiBox-root-114"
+            className="MuiBox-root MuiBox-root-116"
           >
             <h5
               className="MuiTypography-root makeStyles-heading-39 MuiTypography-h5"
@@ -186,13 +190,13 @@ exports[`<Nodes /> should match snapshot 1`] = `
             </h6>
           </div>
           <div
-            className="MuiBox-root MuiBox-root-117"
+            className="MuiBox-root MuiBox-root-119"
           >
             <span
-              className="makeStyles-dot-84 makeStyles-dot-115"
+              className="makeStyles-dot-85 makeStyles-dot-117"
             />
             <span
-              className="makeStyles-text-85 makeStyles-text-116"
+              className="makeStyles-text-86 makeStyles-text-118"
             >
               OFFLINE
             </span>
@@ -258,11 +262,15 @@ exports[`<Nodes /> should match snapshot 1`] = `
             <div
               className="MuiExpansionPanelDetails-root"
             >
-              <p
-                className="MuiTypography-root MuiTypography-body1"
+              <div
+                className="MuiBox-root MuiBox-root-120 makeStyles-blocksContainer-41"
               >
-                Blocks go here
-              </p>
+                <p
+                  className="MuiTypography-root MuiTypography-body1"
+                >
+                  Sorry, there is an error. Please try again
+                </p>
+              </div>
             </div>
           </div>
         </div>
